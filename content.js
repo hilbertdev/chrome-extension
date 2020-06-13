@@ -1,19 +1,14 @@
 function addDisabler() {
-  var allImages = $("img, svg");
-  $.each(allImages, function(idx,ele) {
-    $(ele).addClass("disableImage");
-    var alt = $(ele).attr("alt");
-    var href = $(ele).attr("href");
-    if(alt){
-     // console.log(alt);
-      $(ele).html(href);
-    }
-    else {
-      console.log($(ele));
-      $(ele).html("Image Blocked!");
-      $(ele).html(href);
-    }
-  })
+var blockedImages = $('img');  
+var blockedUrls = [];
+/* add sources or urls to the list */
+for(var i = 0; i < blockedImages.length; i++) {
+   blockedUrls.push(blockedImages[i].src)
+   console.log(blockedImages[i]);
+ // blockedImages[i].html(blockedImages[i].src);
+} 
+console.log(blockedUrls); 
+/* End */
 
 }
 $(window).ready(addDisabler());

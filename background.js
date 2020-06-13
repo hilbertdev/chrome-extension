@@ -13,7 +13,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     })
     return hasImage;
    }
-   function getUrls(requestObject) {
+/*    function getUrls(requestObject) {
        var imageUrl = requestObject.url;
        console.log(imageUrl);
        urls.push(imageUrl);
@@ -22,16 +22,16 @@ chrome.webRequest.onBeforeRequest.addListener(
     }, function(){
          chrome.tabs.sendMessage(tabId, {parameter: details.url});
     });
-   }
+   } */
     
     if (details.type === "image"){
         return {cancel: true};  
         }
    else {
        var cancelRequest = removeImages(details.url);
-       if(cancelRequest){
+   /*     if(cancelRequest){
            getUrls(details.url)
-       }
+       } */
     return {cancel: cancelRequest };
        }
        },
