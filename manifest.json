@@ -6,7 +6,7 @@
     "description": "A plain text description",
 
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["background2.js"],
         "persistent": true
     },
     "permissions": [
