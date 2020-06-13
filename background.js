@@ -29,10 +29,7 @@ chrome.webRequest.onBeforeRequest.addListener(
         }
    else {
        var cancelRequest = removeImages(details.url);
-   /*     if(cancelRequest){
-           getUrls(details.url)
-       } */
-    return {cancel: cancelRequest };
+       return {cancel: cancelRequest };
        }
        },
        {types: ["sub_frame", "script", "image", "xmlhttprequest", "other"],
