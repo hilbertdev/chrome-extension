@@ -1,8 +1,7 @@
-.disableImage {
-    border: 1px solid black;
-    background-color: #f0e68c ;
-    font-size: medium;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    z-index: 2;
+img#alttext-image {
+    border: 1px solid blue;
+}
+.downloadButton {
+    width: 200px;
+    height: 25px;
 }

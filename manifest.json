@@ -1,29 +1,36 @@
 {
     "manifest_version": 2,
-    "name": "My browser extension",
-    "version": "2",
+    "name": "SLL Image Blocker",
+    "version": "1",
 
     "description": "A plain text description",
 
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["jquery-3.4.1.min.js", "background.js"],
         "persistent": true
     },
     "permissions": [
     "webRequest",
     "webRequestBlocking",
     "https://*/*",
-    "http://*/*"
+    "http://*/*",
+    "storage"
     ],
   "content_scripts" : [
      {
          "matches": [
              "<all_urls>"
          ],
-         "js": ["jquery-3.4.1.min.js", "content.js"],
+         "js": ["jquery-3.4.1.min.js", "content.js", "state.js"],
          "css": ["content.css"]
        
      }
- ] 
+ ] ,
+ "browser_action" : {
+     "default_icon": "images/icons8-lock-50.png",
+     "default_title": "Image Blocker",    
+     "default_popup": "user.html" 
+ },
+ "content_security_policy": "script-src 'self' https://kit.fontawesome.com/4b9051e741.js; object-src 'self';"
 }
 

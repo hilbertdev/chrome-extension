@@ -1,0 +1,94 @@
+var isActive = true;
+chrome.webRequest.onBeforeRequest.addListener(
+    function cancelImageRequest(details){
+    var urls = [];
+   //the function checks if the url has any image extensions
+    function removeImages(url) {
+    var imageExtensions = 'jpeg,jpg,image,png,gif,mp4,mov,mkv,flv,f4v,flash,avi,avchd,wmv,webm,webp'.split(',');
+    var hasImage = false;
+    imageExtensions.forEach((extension)=> {
+         if(url.includes(extension)){
+             hasImage = true;
+         }
+    })
+    return hasImage;
+   }
+    if(!isActive){
+        return {cancel: false};
+    }
+    if (details.type === "image"){
+        console.log(details.url);
+        return {cancel: true};  
+        
+    }
+   else {
+       var cancelRequest = removeImages(details.url);
+       if(cancelRequest){
+           console.log(details.url);
+       }
+    return {cancel: cancelRequest };
+    }
+       },
+       {types: ["sub_frame", "script", "image", "xmlhttprequest", "other"],
+        urls: ["<all_urls>"]
+       },
+       ["blocking"]
+   );
+
+   chrome.runtime.onMessage.addListener(
+       function(request, sender, sendResponse){
+
+          if(request.greeting){
+              isActive = request.greeting;
+              sendResponse({farewell: "Extension deactivated"});
+         /*      chrome.tabs.getSelected(null, function(tab) {
+                var code = 'window.location.reload();';
+                chrome.tabs.executeScript(tab.id, {code: code});
+              });
+               */
+          }
+          else {
+            isActive = request.greeting;
+            sendResponse({farewell: "Extension Activated"});
+         /*    chrome.tabs.getSelected(null, function(tab) {
+                var code = 'window.location.reload();';
+                chrome.tabs.executeScript(tab.id, {code: code});
+              }); */
+          }
+        
+       }
+   )
+
+   
+   /*content.js */
+ function createLink (url) {
+  url = url + "allow";
+  var link = $('<a> </a>').text('Download Image')
+  link.attr({ href: url, class: 'imageLinks' })
+  return link
+}
+
+function addDisabler () {
+  var blockedImages = $('img')
+  var blockedUrls = []
+
+  for (var i = 0; i < blockedImages.length; i++) {
+    if (blockedUrls.indexOf(blockedImages[i].src) < 0) {
+      blockedUrls.push(blockedImages[i].src)
+      var img = blockedImages[i]
+      var imageLink = createLink(blockedImages[i].src)
+      $(img)
+        .parent()
+        .parent()
+        .append(imageLink)
+      $(img).replaceWith('')
+    }
+  }
+}
+$('.imageLinks').on('click', (e) => {
+  e.preventDefault();
+  $(this).css("color", "red");
+})
+$(window).ready(addDisabler())
+
+   /*end*/
