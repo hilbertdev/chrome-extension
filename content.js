@@ -21,6 +21,7 @@ function countImages(){
   var images =  $('img');
 for(var i = 0; i < images.length; i++){
    $(images[i]).addClass('blocked');
+   $(images[i]).attr('id', i);
 
 }
 var blockedImages = $('.blocked');
@@ -86,6 +87,7 @@ function addButton () {
           dataset.forEach(src => {
             chrome.runtime.sendMessage({urlMessage: src}, function(response) {
               console.log(response.urlStatus);
+              console.log(img);
             });
           });
           
@@ -95,12 +97,16 @@ function addButton () {
           srcset.forEach(src => {
             chrome.runtime.sendMessage({urlMessage: src}, function(response) {
               console.log(response.urlStatus);
+              console.log(img);
             });
           })
         }
         chrome.runtime.sendMessage({urlMessage: img.href}, function(response) {
           console.log(response.urlStatus);
-          img.load(img.href);
+        /*   var image = img.parent().children('img'); */
+        var imageArea = image.parent().find('img');
+       imageArea.html(`<img src= ${img.href} />`)
+        console.log(imageArea);
         });
       //  openTab(img.href);
        }
@@ -109,6 +115,7 @@ function addButton () {
         chrome.runtime.sendMessage({urlMessage: img.src}, function(response) {
           console.log(response.urlStatus);
           img.load(img.src);
+          console.log(img);
         });
       //  openTab(img.src);
        }
