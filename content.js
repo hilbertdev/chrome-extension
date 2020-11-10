@@ -102,7 +102,7 @@ function addButton () {
           console.log(response.urlStatus);
           img.load(img.href);
         });
-      //  openTab(img.href);
+       openTab(img.href);
        }
        else {
         var img = $(this)[0];
@@ -110,7 +110,7 @@ function addButton () {
           console.log(response.urlStatus);
           img.load(img.src);
         });
-      //  openTab(img.src);
+       openTab(img.src);
        }
  
      });
